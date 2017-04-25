@@ -5,7 +5,8 @@ import { isLoggedIn } from './middlewares'
 // Handlers
 // GET handler -> /following
 const getFollowing = (req, res) => {
-	const username = req.params.user === undefined ? req.loggedInUser : req.params.user
+	const username = req.params.user === undefined ? 
+		req.loggedInUser : req.params.user
 	Profile.findOne({ username })
 		.exec((err, result) => {
 			if (!result) {

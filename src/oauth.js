@@ -23,7 +23,8 @@ passport.use(new GoogleStrategy(
 	config.google,
     (accessToken, refreshToken, profile, done) => {
     	const username = profile.displayName + '@google'
-    	const email = profile.emails.length > 0 ? profile.emails[0].value : 'no@email'
+    	const email = profile.emails.length > 0 ? 
+    		profile.emails[0].value : 'no@email'
     	Auth.findOne({ username }).exec().then((result) => {
 			if (result) {
 				return done(null, username)
@@ -49,7 +50,7 @@ const authSuccess = (req, res) => {
 	if (req.loggedInUser && !req.loggedInUser.includes('@')) {
 		const nativeUser = req.loggedInUser
 		linkHandler(req.loggedInUser, thirdPartyUser, () => {
-			res.redirect('http://localhost:8080')
+			res.redirect('https://squirrelspace-frontend.surge.sh')
 		})
 	} else {
 		const sessionKey = md5(Math.random().toString(36) + thirdPartyUser)
@@ -58,21 +59,23 @@ const authSuccess = (req, res) => {
 			httpOnly: true
 		})
 		putToSession(sessionKey, { username: thirdPartyUser })
-		res.redirect('http://localhost:8080')
+		res.redirect('https://squirrelspace-frontend.surge.sh')
 	}
 }
 
 module.exports = app => {
-	app.use(session({ secret: config.secret, resave: false, saveUninitialized: false }))
+	app.use(session({ secret: config.secret, 
+		resave: false, saveUninitialized: false }))
 	app.use(passport.initialize())
 	app.use(passport.session())
-	app.use('/auth/google', passport.authenticate('google', { scope: ['email'] }))
+	app.use('/auth/google', 
+		passport.authenticate('google', { scope: ['email'] }))
 	app.use('/google/callback', passport.authenticate('google', {
 		successRedirect: '/auth/success',
 		failureRedirect: '/auth/failure'
 	}))
 	app.use('/auth/success', isLoggedIn(false), authSuccess)
 	app.use('/auth/failure', (req, res) => {
-		res.redirect('http://localhost:8080')
+		res.redirect('https://squirrelspace-frontend.surge.sh')
 	})
 }

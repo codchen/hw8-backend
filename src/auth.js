@@ -1,6 +1,7 @@
 // Handles all authentication-related requests
 import { Profile, Auth, Link } from './db/model'
-import { isLoggedIn, cookieKey, putToSession, deleteFromSession } from './middlewares'
+import { isLoggedIn, cookieKey, 
+	putToSession, deleteFromSession } from './middlewares'
 import { linkHandler } from './link'
 
 const md5 = require('md5')
@@ -9,13 +10,15 @@ const hashcode = (salt, password) => md5(salt + password)
 
 // Handler for POST /login
 const login = (req, res) => {
-	if (typeof req.body.username !== 'string' || typeof req.body.password !== 'string') {
+	if (typeof req.body.username !== 'string' 
+		|| typeof req.body.password !== 'string') {
 		return res.status(400).send('Bad request')
 	}
 	// Check if user is already registered
 	// If so get his salted value to compare
 	const username = req.body.username
-	const thirdPartyLogged = req.loggedInUser !== undefined && req.loggedInUser.includes('@')
+	const thirdPartyLogged = req.loggedInUser !== undefined && 
+		req.loggedInUser.includes('@')
 	Auth.findOne({ username }).exec()
 		.then((result) => {
 			if (!result) {

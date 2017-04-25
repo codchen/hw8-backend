@@ -1,5 +1,5 @@
 // const frontend = 'https://hw8-frontend.surge.sh'
-const frontend = 'http://localhost:8080'
+const frontend = 'https://squirrelspace-frontend.surge.sh'
 const redisURL = 'redis://h:pfac6eb5f0d8fde5a5ba2328cb0e7fd230b1e684f26cf441699ccfc62081bcc22@ec2-34-206-56-30.compute-1.amazonaws.com:50619'
 
 const cookieKey = 'sid'
@@ -8,7 +8,8 @@ const objKey = 'username'
 
 module.exports = {
 	cookieKey,
-	putToSession: (sessionHash, authInfo) => redis.hmset(sessionHash, authInfo),
+	putToSession: (sessionHash, authInfo) => 
+		redis.hmset(sessionHash, authInfo),
 	deleteFromSession: (sessionHash) => redis.del(sessionHash),
 	// Check if user is logged middleware
 	isLoggedIn: (return401) => (req, res, next) => {

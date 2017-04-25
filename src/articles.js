@@ -49,7 +49,8 @@ const editArticle = (postId, author, text, res) => {
 	Article.findOneAndUpdate({ _id: postId, author }, { text })
 		.exec((err, result) => {
 			if (!result) {
-				return res.status(403).send('Forbidden: Only author can edit this article')
+				return res.status(403)
+					.send('Forbidden: Only author can edit this article')
 			}
 			sendArticleById(postId, res)
 		})
@@ -59,7 +60,9 @@ const editArticle = (postId, author, text, res) => {
 const postComment = (postId, author, text, res) => {
 	nextCommentId(postId)
 		.then((commentId) => Article.updateOne({ _id: postId }, {
-				$push: { comments: { author, text, commentId, date: Date.now() } }
+				$push: { 
+					comments: { author, text, commentId, date: Date.now() } 
+				}
 			}).exec())
 		.then(() => {
 			sendArticleById(postId, res)
@@ -76,7 +79,8 @@ const editComment = (postId, commentId, author, text, res) => {
 			'comments.author': author}, { 'comments.$.text': text })
 		.exec((err, result) => {
 			if (!result) {
-				return res.status(403).send('Forbidden: Only author can edit this comment')
+				return res.status(403)
+					.send('Forbidden: Only author can edit this comment')
 			}
 			sendArticleById(postId, res)
 		})
@@ -106,7 +110,8 @@ const putArticles = (req, res) => {
 	} else if (+req.body.commentId === -1) {
 		postComment(postId, req.loggedInUser, message, res)
 	} else {
-		editComment(postId, +req.body.commentId, req.loggedInUser, message, res)
+		editComment(postId, +req.body.commentId, 
+			req.loggedInUser, message, res)
 	}
 }
 
