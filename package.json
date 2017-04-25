@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "babel src -d lib",
-    "start": "npm run build && node index.js",
+    "start": "export CLOUDINARY_URL=\"cloudinary://243637988432861:qXfs1aT7eeJewGO9Kd5QEXAeN3Q@hvsnwvrk4\" && npm run build && node index.js",
     "watch": "nodemon index.js",
     "test": "mocha --opts mocha.opts ./src/tests/*.spec.js"
   },
@@ -16,14 +16,17 @@
     "babel-cli": "^6.24.0",
     "babel-preset-es2015": "^6.24.0",
     "body-parser": "^1.15.0",
+    "cloudinary": "^1.8.0",
     "cookie-parser": "^1.4.3",
     "express": "^4.13.4",
     "express-session": "^1.15.2",
     "md5": "^2.2.1",
     "mongoose": "^4.9.2",
+    "multer": "^1.3.0",
     "passport": "^0.3.2",
     "passport-google-oauth": "^1.0.0",
-    "redis": "^2.7.1"
+    "redis": "^2.7.1",
+    "stream": "0.0.2"
   },
   "devDependencies": {
     "babel-core": "^6.24.0",

@@ -123,11 +123,29 @@ const putItem = (type) => (req, res) => {
 	})
 }
 
+const uploadImage = require('./uploadCloudinary')
+
+const uploadAvatar = (req, res) => {
+	const payload = {
+		avatar: req.fileurl
+	}
+	const user = req.loggedInUser
+	updateByUser(user, payload, (result, error) => {
+		if (error) {
+			console.error(error)
+			return res.status(500).send('Internal server error')
+		} else {
+			payload.username = user
+			return res.send(payload)
+		}
+	})
+}
+
 module.exports = app => {
      app.get('/headlines/:user?', isLoggedIn(true), getCollection('headline'))
      app.put('/headline', isLoggedIn(true), putItem('headline'))
      app.get('/avatars/:user?', isLoggedIn(true), getCollection('avatar'))
-     app.put('/avatar', isLoggedIn(true), putItem('avatar'))
+     app.put('/avatar', isLoggedIn(true), uploadImage('avatar'), uploadAvatar)
      app.get('/zipcode/:user?', isLoggedIn(true), getItem('zipcode'))
      app.put('/zipcode', isLoggedIn(true), putItem('zipcode'))
      app.get('/email/:user?', isLoggedIn(true), getItem('email'))
