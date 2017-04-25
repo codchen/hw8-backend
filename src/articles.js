@@ -133,6 +133,8 @@ const postArticle = (req, res) => {
 	)
 }
 
+const uploadImage = require('./uploadCloudinary')
+
 module.exports = app => {
      app.get('/articles/:id?', isLoggedIn(true), getArticles)
      app.put('/articles/:id', isLoggedIn(true), putArticles)
