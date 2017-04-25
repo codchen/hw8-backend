@@ -1,0 +1,5 @@
+{ 
+     "netid": "xc12",
+  "frontend": "https://squirrelspace-backend.surge.sh",
+   "backend": "https://squirrelspace-backend.herokuapp.com"
+}
