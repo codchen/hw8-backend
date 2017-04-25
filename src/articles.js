@@ -119,6 +119,9 @@ const postArticle = (req, res) => {
 		text: req.body.text,
 		author: req.loggedInUser
 	}
+	if (req.fileurl) {
+		newArticle.img = req.fileurl
+	}
 	new Article(newArticle).save((err, product) => {
 			if (err) {
 				console.error(err)
@@ -133,5 +136,5 @@ const postArticle = (req, res) => {
 module.exports = app => {
      app.get('/articles/:id?', isLoggedIn(true), getArticles)
      app.put('/articles/:id', isLoggedIn(true), putArticles)
-     app.post('/article', isLoggedIn(true), postArticle)
+     app.post('/article', isLoggedIn(true), uploadImage('avatar'), postArticle)
 }
