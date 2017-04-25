@@ -3,11 +3,11 @@
     "google": {
         "clientID": "569426678144-55vrsrnic9vej8m6ud15tsn7ddorf2p5.apps.googleusercontent.com",
         "clientSecret": "XgC1dkRmWR_-hcbVgoB4UDd_",
-        "callbackURL": "http://localhost:3000/google/callback"
+        "callbackURL": "https://squirrelspace-backend.herokuapp.com/google/callback"
     },
     "facebook": {
     	"clientID": "313290469086513",
         "clientSecret": "eca34fffb15101f575be36616363d00a",
-        "callbackURL": "http://localhost:3000/facebook/callback"
+        "callbackURL": "https://squirrelspace-backend.herokuapp.com/facebook/callback"
     }
 }
