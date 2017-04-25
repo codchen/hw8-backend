@@ -18,6 +18,7 @@ if (!process.env.CLOUDINARY_URL) {
 const doUpload = (publicId, req, res, next) => {
     if (!req.file) {
         next()
+        return
     }
 
 	const uploadStream = cloudinary.uploader.upload_stream(result => {    	
