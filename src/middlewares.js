@@ -1,6 +1,6 @@
 // const frontend = 'https://hw8-frontend.surge.sh'
 const frontend = 'http://localhost:8080'
-const redisURL = 'redis://127.0.0.1:6379'
+const redisURL = 'redis://h:pfac6eb5f0d8fde5a5ba2328cb0e7fd230b1e684f26cf441699ccfc62081bcc22@ec2-34-206-56-30.compute-1.amazonaws.com:50619'
 
 const cookieKey = 'sid'
 const redis = require('redis').createClient(redisURL)
