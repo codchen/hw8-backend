@@ -68,7 +68,7 @@ const getCollection = (type) => (req, res) => {
 			console.error(error)
 			return res.status(500).send('Internal server error')
 		} else {
-			Promise.all(result.map(extract(type)))
+			Promise.all(result.map(extract(type, originalUsers)))
 				.then((results) => {
 					payload[key] = results
 					return res.send(payload)
