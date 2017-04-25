@@ -1,7 +1,7 @@
 // MongoDB setup with Mongoose
 const mongoose = require('mongoose')
 
-let url = 'mongodb://127.0.0.1:27017'
+let url = 'mongodb://heroku_ghrmtd8v:md9gcglhm00alt5sm18k0q4eji@ds119091.mlab.com:19091/heroku_ghrmtd8v'
 
 if (process.env.MONGOLAB_URI) {
 	url = process.env.MONGOLAB_URI;
