@@ -46,10 +46,10 @@ const updateByUser = (user, payload, callback) => {
 }
 
 // Helper function to retrieve specific information
-const extract = (type) => (p) => {
+const extract = (type, originalUsers) => (p) => {
 	const info = {}
 	return Link.findOne({ to: p.username }).exec().then((result) => {
-		if (result) {
+		if (result && originalUsers.includes(result.from)) {
 			info.username = result.from
 		} else {
 			info.username = p.username
@@ -63,7 +63,7 @@ const extract = (type) => (p) => {
 const getCollection = (type) => (req, res) => {
 	const key = type + 's'
 	const payload = {}
-	const callback = (result, error) => {
+	const callback = (originalUsers) => (result, error) => {
 		if (error) {
 			console.error(error)
 			return res.status(500).send('Internal server error')
@@ -77,9 +77,9 @@ const getCollection = (type) => (req, res) => {
 	}
 	if (req.params.user !== undefined) {
 		const users = req.params.user.split(',')
-		findByUsers(users, callback)
+		findByUsers(users, callback(users))
 	} else {
-		findByUser(req.loggedInUser, callback)
+		findByUser(req.loggedInUser, callback([req.loggedInUser]))
 	}
 }
 
